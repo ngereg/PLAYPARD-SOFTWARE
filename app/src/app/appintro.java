@@ -11,8 +11,7 @@ public class appintro {
 		System.out.print("please enter your username:" );
 		String username=input.next();
 		System.out.print("please enter your password:" );
-		String password=input.next();
-		// test by yueheng		
+		String password=input.next();	
 	}
 
 }
