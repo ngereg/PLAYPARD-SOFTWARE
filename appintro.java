@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -22,7 +23,7 @@ import javax.swing.border.TitledBorder;
  *
  */
 
-public class appintro extends JFrame implements ActionListener{
+public class appintro extends JFrame implements ActionListener {
 	private JLabel username, password;
 	private JTextField uid, pwd;
 	private JPanel panel, bottonpanel, mainpane;
@@ -59,22 +60,14 @@ public class appintro extends JFrame implements ActionListener{
 		panel.setPreferredSize(new Dimension(380, 100));
 		bottonpanel.setPreferredSize(new Dimension(380, 50));
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		File accounts = new File("xxxx.txt");
-		FileWriter fw = null;
-		try {
-			fw = new FileWriter(accounts);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		if (arg0.getActionCommand().equals("Log in")) {
 			String userid = uid.getText();
 			String password = pwd.getText();
 			try {
-				if (validateAccount(accounts, userid, password)) {
+				if (validateAccount(userid, password)) {
 					System.out.println("log in success");
 				} else {
 					System.out.println("invalid username or password");
@@ -87,40 +80,47 @@ public class appintro extends JFrame implements ActionListener{
 			String userid = uid.getText();
 			String password = pwd.getText();
 			try {
-				if (validateUserName(accounts, userid)) {
+				if (!validateUserName(userid)) {
 					Account account = new Account(userid, password);
+					System.out.println(account.toString());
+					FileWriter fw = new FileWriter(new File("accounts.txt"), true);
 					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter out = new PrintWriter(bw);
-					out.println(account.toString());
+					PrintWriter write = new PrintWriter(bw);
+					write.print(account.toString());
 				} else {
 					System.out.println("Already have same user name.");
 				}
-			} catch (FileNotFoundException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 
-	private boolean validateAccount(File accounts, String userid, String password) throws FileNotFoundException {
-		Scanner reader = new Scanner(accounts);
-		// while(reader.hasNext()) {
+	private boolean validateAccount(String userid, String password) throws FileNotFoundException {
+		Scanner reader = new Scanner(new File("accounts.txt"));
+		while (reader.hasNextLine()) {
 			String temp = reader.nextLine();
 			String[] array = temp.split(",");
 			String tempAccount = array[0];
 			String tempPWD = array[1];
-			System.out.println(temp + "111111");
 			if (tempAccount.equals(userid) && tempPWD.equals(password)) {
 				return true;
 			}
-		// }
+		}
 		return false;
 	}
 
-
-	private boolean validateUserName(File accounts, String userid) throws FileNotFoundException {
-		Scanner reader = new Scanner(accounts);
-		
+	private boolean validateUserName(String userid) throws FileNotFoundException {
+		Scanner reader = new Scanner(new File("accounts.txt"));
+		while (reader.hasNextLine()) {
+			String temp = reader.nextLine();
+			String[] array = temp.split(",");
+			String tempAccount = array[0];
+			if (tempAccount.equals(userid)) {
+				return true;
+			}
+		}
 		return false;
 	}
 }
