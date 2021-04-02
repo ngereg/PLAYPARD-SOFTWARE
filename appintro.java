@@ -24,10 +24,10 @@ import javax.swing.border.TitledBorder;
  */
 
 public class appintro extends JFrame implements ActionListener {
-	private JLabel username, password;
-	private JTextField uid, pwd;
-	private JPanel panel, bottonpanel, mainpane;
-	private JButton login, signup;
+	private JLabel username, password,newusername,newpassword,error;
+	private JTextField uid, pwd,nuid,npwd;
+	private JPanel panel, bottonpanel, mainpane,panel2,panel3;
+	private JButton login, signup,finish;
 
 	public appintro() {
 		mainpane = new JPanel();
@@ -67,8 +67,21 @@ public class appintro extends JFrame implements ActionListener {
 			String userid = uid.getText();
 			String password = pwd.getText();
 			try {
-				if (validateAccount(userid, password)) {
+				if(userid.equals("")||password.equals("")) {
+					panel3 = new JPanel();
+					error=  new JLabel("username or password can't be null");
+					panel3.add(error);
+					mainpane.add(panel3);
+					this.setSize(400, 230);
+				}
+				else if (validateAccount(userid, password)) {
 					System.out.println("log in success");
+					this.setVisible(false);
+					inapp a = new inapp();
+					a.setSize(400, 150);
+					a.setTitle("FREEMIO");
+					a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					a.setVisible(true);
 				} else {
 					System.out.println("invalid username or password");
 				}
@@ -77,16 +90,41 @@ public class appintro extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		} else if (arg0.getActionCommand().equals("Sign up")) {
-			String userid = uid.getText();
-			String password = pwd.getText();
+			this.setSize(400, 300);
+			newusername = new JLabel("New Username:                                     ");
+			nuid = new JTextField(10);
+			newpassword = new JLabel("New Password:                                      ");
+			npwd = new JTextField(10);
+			panel2 = new JPanel();
+			panel2.add(newusername);
+			panel2.add(nuid);
+			panel2.add(newpassword);
+			panel2.add(npwd);
+			finish = new JButton("finish");
+			panel2.add(finish);
+			finish.addActionListener(this);
+			mainpane.add(panel2);
+			panel2.setPreferredSize(new Dimension(380, 100));
+		}else if(arg0.getActionCommand().equals("finish")) {	
+			String userid = nuid.getText();
+			String password = npwd.getText();
 			try {
-				if (!validateUserName(userid)) {
+				if(userid.equals("")||password.equals("")) {
+					panel3 = new JPanel();
+					error=  new JLabel("username or password can't be null");
+					panel3.add(error);
+					mainpane.add(panel3);
+					this.setSize(400, 350);
+				}
+				else if (!validateUserName(userid)) {
 					Account account = new Account(userid, password);
-					System.out.println(account.toString());
-					FileWriter fw = new FileWriter(new File("accounts.txt"), true);
-					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter write = new PrintWriter(bw);
-					write.print(account.toString());
+                    FileWriter fw = new FileWriter(new File("accounts.txt"), true);
+                    PrintWriter pw = new PrintWriter(fw);
+                    String temp = account.toString();
+                    System.out.println(temp);
+                    pw.println(temp);
+                    pw.close();
+                    this.setSize(400, 200);
 				} else {
 					System.out.println("Already have same user name.");
 				}
