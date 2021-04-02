@@ -1,7 +1,14 @@
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,25 +62,65 @@ public class appintro extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		File accounts = new File("xxxx.txt");
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(accounts);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (arg0.getActionCommand().equals("Log in")) {
 			String userid = uid.getText();
 			String password = pwd.getText();
-			boolean validAcccount = cheakValid(userid, password);
-			if (validAcccount) {
-				System.out.println("log in success");
-			} else {
-				System.out.println("invalid username or password");
+			try {
+				if (validateAccount(accounts, userid, password)) {
+					System.out.println("log in success");
+				} else {
+					System.out.println("invalid username or password");
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else if (arg0.getActionCommand().equals("Sign up")) {
-			System.out.println("sign up success");
+			String userid = uid.getText();
+			String password = pwd.getText();
+			try {
+				if (validateUserName(accounts, userid)) {
+					Account account = new Account(userid, password);
+					BufferedWriter bw = new BufferedWriter(fw);
+					PrintWriter out = new PrintWriter(bw);
+					out.println(account.toString());
+				} else {
+					System.out.println("Already have same user name.");
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
-	private boolean cheakValid(String uid, String pwd) {
-		if (uid.equals("admin") && pwd.equals("admin")) {
-			return true;
-		}
+	private boolean validateAccount(File accounts, String userid, String password) throws FileNotFoundException {
+		Scanner reader = new Scanner(accounts);
+		// while(reader.hasNext()) {
+			String temp = reader.nextLine();
+			String[] array = temp.split(",");
+			String tempAccount = array[0];
+			String tempPWD = array[1];
+			System.out.println(temp + "111111");
+			if (tempAccount.equals(userid) && tempPWD.equals(password)) {
+				return true;
+			}
+		// }
 		return false;
 	}
 
+
+	private boolean validateUserName(File accounts, String userid) throws FileNotFoundException {
+		Scanner reader = new Scanner(accounts);
+		
+		return false;
+	}
 }
