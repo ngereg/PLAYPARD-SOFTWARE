@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author ruitong sun, Yueheng Han
+ *
+ */
 public class Account {
 	private String userName;
 	private String passWord;
