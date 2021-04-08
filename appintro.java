@@ -1,15 +1,12 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,10 +21,10 @@ import javax.swing.border.TitledBorder;
  */
 
 public class appintro extends JFrame implements ActionListener {
-	private JLabel username, password,newusername,newpassword,error;
-	private JTextField uid, pwd,nuid,npwd;
-	private JPanel panel, bottonpanel, mainpane,panel2,panel3;
-	private JButton login, signup,finish;
+	private JLabel username, password, newusername, newpassword, error;
+	private JTextField uid, pwd, nuid, npwd;
+	private JPanel panel, bottonpanel, mainpane, panel2, panel3;
+	private JButton login, signup, finish;
 
 	public appintro() {
 		mainpane = new JPanel();
@@ -67,14 +64,13 @@ public class appintro extends JFrame implements ActionListener {
 			String userid = uid.getText();
 			String password = pwd.getText();
 			try {
-				if(userid.equals("")||password.equals("")) {
+				if (userid.equals("") || password.equals("")) {
 					panel3 = new JPanel();
-					error=  new JLabel("username or password can't be null");
+					error = new JLabel("username or password can't be null");
 					panel3.add(error);
 					mainpane.add(panel3);
 					this.setSize(400, 230);
-				}
-				else if (validateAccount(userid, password)) {
+				} else if (Account.validateAccount(new Account(userid, password))) {
 					System.out.println("log in success");
 					this.setVisible(false);
 					inapp a = new inapp();
@@ -89,7 +85,8 @@ public class appintro extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if (arg0.getActionCommand().equals("Sign up")) {
+		} 
+		if (arg0.getActionCommand().equals("Sign up")) {
 			this.setSize(400, 300);
 			newusername = new JLabel("New Username:                                     ");
 			nuid = new JTextField(10);
@@ -105,26 +102,26 @@ public class appintro extends JFrame implements ActionListener {
 			finish.addActionListener(this);
 			mainpane.add(panel2);
 			panel2.setPreferredSize(new Dimension(380, 100));
-		}else if(arg0.getActionCommand().equals("finish")) {	
+		} 
+		if (arg0.getActionCommand().equals("finish")) {
 			String userid = nuid.getText();
 			String password = npwd.getText();
 			try {
-				if(userid.equals("")||password.equals("")) {
+				if (userid.equals("") || password.equals("")) {
 					panel3 = new JPanel();
-					error=  new JLabel("username or password can't be null");
+					error = new JLabel("username or password can't be null");
 					panel3.add(error);
 					mainpane.add(panel3);
 					this.setSize(400, 350);
-				}
-				else if (!validateUserName(userid)) {
+				} else if (Account.validateUserName(userid)) {
 					Account account = new Account(userid, password);
-                    FileWriter fw = new FileWriter(new File("accounts.txt"), true);
-                    PrintWriter pw = new PrintWriter(fw);
-                    String temp = account.toString();
-                    System.out.println(temp);
-                    pw.println(temp);
-                    pw.close();
-                    this.setSize(400, 200);
+					FileWriter fw = new FileWriter(new File("accounts.txt"), true);
+					PrintWriter pw = new PrintWriter(fw);
+					String temp = account.toString();
+					System.out.println(temp);
+					pw.println(temp);
+					pw.close();
+					this.setSize(400, 200);
 				} else {
 					System.out.println("Already have same user name.");
 				}
@@ -133,32 +130,5 @@ public class appintro extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	private boolean validateAccount(String userid, String password) throws FileNotFoundException {
-		Scanner reader = new Scanner(new File("accounts.txt"));
-		while (reader.hasNextLine()) {
-			String temp = reader.nextLine();
-			String[] array = temp.split(",");
-			String tempAccount = array[0];
-			String tempPWD = array[1];
-			if (tempAccount.equals(userid) && tempPWD.equals(password)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean validateUserName(String userid) throws FileNotFoundException {
-		Scanner reader = new Scanner(new File("accounts.txt"));
-		while (reader.hasNextLine()) {
-			String temp = reader.nextLine();
-			String[] array = temp.split(",");
-			String tempAccount = array[0];
-			if (tempAccount.equals(userid)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

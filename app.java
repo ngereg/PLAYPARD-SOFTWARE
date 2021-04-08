@@ -5,7 +5,7 @@ import javax.swing.JFrame;
  */
 
 public class app {
-	public boolean check=true;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		appintro a = new appintro();
