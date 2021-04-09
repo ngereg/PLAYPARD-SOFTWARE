@@ -21,7 +21,7 @@ import javax.swing.border.TitledBorder;
  */
 
 public class appintro extends JFrame implements ActionListener {
-	private JLabel username, password, newusername, newpassword, error;
+	private JLabel username, password, newusername, newpassword, error,usercheck;
 	private JTextField uid, pwd, nuid, npwd;
 	private JPanel panel, bottonpanel, mainpane, panel2, panel3;
 	private JButton login, signup, finish;
@@ -73,11 +73,15 @@ public class appintro extends JFrame implements ActionListener {
 				} else if (Account.validateAccount(new Account(userid, password))) {
 					System.out.println("log in success");
 					this.setVisible(false);
-					inapp a = new inapp();
+					inapp a = new inapp(new Account(userid, password));
 					a.setSize(400, 150);
 					a.setTitle("FREEMIO");
 					a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					a.setVisible(true);
+					if(load(userid)) {
+						System.out.print("old users");
+					}else
+						System.out.print("new users");
 				} else {
 					System.out.println("invalid username or password");
 				}
@@ -130,5 +134,21 @@ public class appintro extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		}
+	}
+	public boolean load(String username) {
+		File file = new File(username+".txt");	
+		if(file.exists()) {
+			return true;
+		}else {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return false;
+		}
+
+
 	}
 }

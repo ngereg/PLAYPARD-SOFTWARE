@@ -1,6 +1,10 @@
+
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,10 +19,13 @@ import javax.swing.border.TitledBorder;
  */
 
 public class inapp extends JFrame implements ActionListener{
+	private JTextField uid, pwd;
 	private JPanel bottonpanel, mainpane;
 	private JButton Creat, Search, Generate, Set, ck;
+	Account mainaccount ;
 	
-	public inapp() {
+	public inapp(Account account) {
+		mainaccount=account;
 		mainpane = new JPanel();
 		bottonpanel = new JPanel();
 		bottonpanel.setBorder(new TitledBorder("function"));
@@ -46,7 +53,20 @@ public class inapp extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
-	}
+		if (arg0.getActionCommand().equals("Search task")) {
+			System.out.println("Search task");
+			searchpanel a = null;
+			try {
+				a = new searchpanel(mainaccount);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			a.setSize(400, 300);
+			a.setTitle("FREEMIO");
+			a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			a.setVisible(true);
 
+		}
+}
 }
