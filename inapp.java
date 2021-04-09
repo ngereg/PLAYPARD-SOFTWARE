@@ -19,7 +19,6 @@ import javax.swing.border.TitledBorder;
  */
 
 public class inapp extends JFrame implements ActionListener{
-	private JTextField uid, pwd;
 	private JPanel bottonpanel, mainpane;
 	private JButton Creat, Search, Generate, Set, ck;
 	Account mainaccount ;

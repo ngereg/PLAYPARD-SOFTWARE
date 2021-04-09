@@ -1,3 +1,11 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -74,6 +82,28 @@ public class Task {
 		return id + ";" + name + ";" + description + ";" + date + ";" + priority + ";" + progress;
 	}
 
+	public static void createTask(String name, String description, String dueDate, int priority, int progress, File file) throws IOException {
+		boolean empty = file.length() == 0;
+		int ID = 0;
+		if (!empty) {
+			FileReader fr = new FileReader(file);
+			BufferedReader input = new BufferedReader(fr);
+			String last = null, line;
+			while ((line = input.readLine()) != null) {
+				last = line;
+			}
+			input.close();
+			ID = Integer.parseInt(last.substring(0, last.indexOf(";"))) + 1;
+		}
+		Date due = makeItDate(dueDate);
+		Task newTask = new Task(ID, name, description, due, priority, progress);
+		FileWriter fw = new FileWriter(file, true);
+		PrintWriter pw = new PrintWriter(fw);
+		pw.println(newTask.toString());
+		pw.close();
+		System.out.println(newTask.toString());
+	}
+
 	public static ArrayList<Task> search(Scanner reader, String searchCond) {
 		// TODO Auto-generated method stub
 		ArrayList<Task> result = new ArrayList<Task>();
@@ -81,20 +111,20 @@ public class Task {
 			String temp = reader.nextLine();
 			String[] array = temp.split(";");
 			String temptaskname = array[1];
-			if(temptaskname.contains(searchCond)) {
+			if (temptaskname.contains(searchCond)) {
 				result.add(makeItTask(array));
 			}
-	}
+		}
 		return result;
 	}
 
 	public static Date makeItDate(String dateInString) {
 		String[] array = dateInString.split("/");
 		int year = Integer.parseInt(array[2]);
-        int mouth = Integer.parseInt(array[0]);
-        int date = Integer.parseInt(array[1]);
+		int mouth = Integer.parseInt(array[0]);
+		int date = Integer.parseInt(array[1]);
 		return new Date(year - 1900, mouth - 1, date);
-		
+
 	}
 
 	public static Task makeItTask(String[] array) {

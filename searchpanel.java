@@ -59,7 +59,6 @@ public class searchpanel extends JFrame implements ActionListener {
 			
 			for(int i = 0; i < result.size(); i++) {   
 				searchresult=result.get(i).toString()+"\n";
-			
 			}
 			information=new JLabel(searchresult);
 			System.out.print(searchresult);
