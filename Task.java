@@ -73,4 +73,20 @@ public class Task {
 		return id + ";" + name + ";" + description + ";" 
 				+ date + ";" + priority + ";" + progress;
 	}
+	
+	public Date MakeItDate(String dateInString) {
+		String[] array = dateInString.split("/");
+		int year = Integer.parseInt(array[0]);
+		int mouth = Integer.parseInt(array[1]);
+		int date = Integer.parseInt(array[2]);
+		return new Date(year-1900, mouth-1, date);
+	}
+	
+	public Task makeItTask(String[] array) {
+		int tempId = Integer.parseInt(array[0]);
+		int tempPriority = Integer.parseInt(array[4]);
+		int tempProgress = Integer.parseInt(array[5]);
+		Date tempDue = MakeItDate(array[3]);
+		return  new Task(tempId, array[1], array[2], tempDue, tempPriority, tempProgress);
+	}
 }
