@@ -1,19 +1,20 @@
+import java.util.Date;
 
 public class Task {
 
 	private int id;
 	private String name;
 	private String description;
-	private String date;
-	private int priority;
-	private int progress;
+	private Date dueDate; // int year(current-1900); int month(current-1); int date
+	private int priority; // 0 is normal, 1 is emergency
+	private int progress; // -1 is finish, 0 is doing, 1 is to do
 	
 	
-	public Task (int id, String name, String description, String date, int priority, int progress) {
+	public Task (int id, String name, String description, Date dueDate, int priority, int progress) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.date = date;
+		this.dueDate = dueDate;
 		this.priority = priority;
 		this.progress = progress;
 	}
@@ -31,8 +32,8 @@ public class Task {
 		return description;
 	}
 	
-	public String getDate() {
-		return date;
+	public Date getDueDate() {
+		return dueDate;
 	}
 	
 	public int getPriority() {
@@ -53,8 +54,8 @@ public class Task {
 		this.description = description;
 	}
 	
-	public void setDate(String date) {
-		this.date = date;
+	public void setDate(Date dueDate) {
+		this.dueDate = dueDate;
 	}
 	
 	public void setPriority(int priority) {
@@ -65,5 +66,11 @@ public class Task {
 		this.progress = progress;
 	}
 	
-	
+	public String toString() {
+	    int dueDateYear = dueDate.getYear()+1900;
+	    int dueDateMonth = dueDate.getMonth()+1;
+		String date = dueDateMonth + "/" + dueDate.getDate() + "/" + dueDateYear;
+		return id + ";" + name + ";" + description + ";" 
+				+ date + ";" + priority + ";" + progress;
+	}
 }
