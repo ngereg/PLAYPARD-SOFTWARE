@@ -39,7 +39,13 @@ public class searchpanel extends JFrame implements ActionListener {
 		username=account.getUserName();
 		mainpanel.add(panel);
 		add(mainpanel);
-		panel.setPreferredSize(new Dimension(380, 100));
+		panel.setPreferredSize(new Dimension(380, 50));
+		
+		information=new JTextArea(30, 30);
+		panel1=new JPanel();
+		panel1.add(information);
+		mainpanel.add(panel1);
+		this.setSize(400, 350);
 		}
 
 	
@@ -61,13 +67,8 @@ public class searchpanel extends JFrame implements ActionListener {
 			for(int i = 0; i < result.size(); i++) {   
 				searchresult = searchresult + result.get(i).toString() + "\n";
 			}
-			information=new JTextArea(100, 100);
 			information.setText(searchresult);
 			System.out.print(searchresult);
-			panel1=new JPanel();
-			panel1.add(information);
-			mainpanel.add(panel1);
-			this.setSize(400, 350);
 		}
 	}
 }
