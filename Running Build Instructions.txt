@@ -1,0 +1,11 @@
+PlayPard Software
+Freemio
+2021
+
+Running Build Script for V2-beta:
+
+1.) Right click on project (main directory) in Eclipse
+2.) Click on properties
+3.) Add build.xml file to builders properties
+4.) Run build.xml as ANT build
+5.) Observe console output for build 
