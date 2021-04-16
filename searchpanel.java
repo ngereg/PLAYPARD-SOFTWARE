@@ -12,14 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class searchpanel extends JFrame implements ActionListener {
-	private JLabel searchprint,information;
+	private JLabel searchprint;
 	private JTextField taskname;
 	private JPanel panel,panel1,mainpanel;
 	private JButton searchbutton;
+	private JTextArea information;
 	String id,name,description,year,month,day,prity,progress,searchCond,username;
 
 	public searchpanel (Account account) throws FileNotFoundException {
@@ -59,7 +61,8 @@ public class searchpanel extends JFrame implements ActionListener {
 			for(int i = 0; i < result.size(); i++) {   
 				searchresult = searchresult + result.get(i).toString() + "\n";
 			}
-			information=new JLabel(searchresult);
+			information=new JTextArea(100, 100);
+			information.setText(searchresult);
 			System.out.print(searchresult);
 			panel1=new JPanel();
 			panel1.add(information);
