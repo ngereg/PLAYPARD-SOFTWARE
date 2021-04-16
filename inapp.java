@@ -1,5 +1,3 @@
-
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,9 +61,8 @@ public class inapp extends JFrame implements ActionListener{
 			}
 			a.setSize(400, 300);
 			a.setTitle("FREEMIO");
-			a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			a.setVisible(true);
-
 		}
 }
 }
