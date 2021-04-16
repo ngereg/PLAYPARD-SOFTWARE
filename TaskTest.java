@@ -145,4 +145,11 @@ public class TaskTest {
 		}
 		reader.close();
 	}
+	@Test
+	public void testremnder() {
+		Date dueDate = new Date(2021-1900, 4-1, 9);
+		String email= "email@email.com";
+		Task task = new Task(0, "task", "This is a test Task", dueDate, 0, 0);
+		assertTrue(Task.setremnder(email,task));
+	}
 }
