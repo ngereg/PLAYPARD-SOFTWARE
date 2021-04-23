@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,9 +24,9 @@ import javax.swing.border.TitledBorder;
 
 public class inapp extends JFrame implements ActionListener{
 	private JTextField uid, pwd;
-	private JPanel bottonpanel, mainpane,sortpanel,sortbottonpanel;
+	private JPanel bottonpanel, mainpane,sortpanel,sortbottonpanel, grouppanel;
 	private JTextArea sortresult;
-	private JButton Creat, Search, Sort, Set, ck,sortbyname,sortbyprior,sortbyprogres;
+	private JButton Creat, Search, Sort, Set, ck,sortbyname,sortbyprior,sortbyprogres,Group;
 	Account mainaccount ;
 	String username;
 	
@@ -39,8 +38,9 @@ public class inapp extends JFrame implements ActionListener{
 		Creat = new JButton("Create task");
 		Search = new JButton("Search task");
 		Sort = new JButton("Sort");
-		Set = new JButton("Group task");
+		Set = new JButton("Set task reminder");
 		ck = new JButton("Check task progress");
+		Group = new JButton("Create Group");
 		bottonpanel.add(Creat);
 		Creat.addActionListener(this);
 		bottonpanel.add(Search);
@@ -51,6 +51,8 @@ public class inapp extends JFrame implements ActionListener{
 		Set.addActionListener(this);
 		bottonpanel.add(ck);
 		ck.addActionListener(this);
+		bottonpanel.add(Group);
+		Group.addActionListener(this);
 		bottonpanel.setBorder(new TitledBorder(""));
 		username = account.getUserName();
 		add(mainpane);
@@ -60,23 +62,6 @@ public class inapp extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getActionCommand().equals("Create task")) {
-			System.out.println("Creat task");
-			creatpanel a = null;
-			try {
-				a = new creatpanel(mainaccount);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			a.setSize(1000, 120);
-			a.setTitle("FREEMIO");
-			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			a.setVisible(true);
-		}
 		if (arg0.getActionCommand().equals("Search task")) {
 			System.out.println("Search task");
 			searchpanel a = null;
@@ -100,5 +85,14 @@ public class inapp extends JFrame implements ActionListener{
 			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			a.setVisible(true);
 		}
+		
+		if (arg0.getActionCommand().equals("Create Group")) {
+			grouppanel a = new grouppanel(mainaccount);
+			a.setSize(400, 450);
+			a.setTitle("FREEMIO");
+			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			a.setVisible(true);
+		}
+		
 }
 }
