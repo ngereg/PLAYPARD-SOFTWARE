@@ -28,7 +28,7 @@ public class searchpanel extends JFrame implements ActionListener {
 		mainpanel=new JPanel();
 		panel = new JPanel();
 		
-		searchprint = new JLabel("Please inter your task name");
+		searchprint = new JLabel("Please Enter your task name");
 		taskname = new JTextField(10);
 		
 		panel.add(searchprint);

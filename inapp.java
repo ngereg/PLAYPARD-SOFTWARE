@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,7 +39,7 @@ public class inapp extends JFrame implements ActionListener{
 		Creat = new JButton("Create task");
 		Search = new JButton("Search task");
 		Sort = new JButton("Sort");
-		Set = new JButton("Set task reminder");
+		Set = new JButton("Group task");
 		ck = new JButton("Check task progress");
 		bottonpanel.add(Creat);
 		Creat.addActionListener(this);
@@ -59,6 +60,23 @@ public class inapp extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getActionCommand().equals("Create task")) {
+			System.out.println("Creat task");
+			creatpanel a = null;
+			try {
+				a = new creatpanel(mainaccount);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			a.setSize(1000, 120);
+			a.setTitle("FREEMIO");
+			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			a.setVisible(true);
+		}
 		if (arg0.getActionCommand().equals("Search task")) {
 			System.out.println("Search task");
 			searchpanel a = null;
