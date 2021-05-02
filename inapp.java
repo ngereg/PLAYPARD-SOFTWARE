@@ -27,7 +27,7 @@ public class inapp extends JFrame implements ActionListener{
 	private JTextField uid, pwd;
 	private JPanel bottonpanel, mainpane,sortpanel,sortbottonpanel;
 	private JTextArea sortresult;
-	private JButton Creat, Search, Sort, CreateGroup, ck,sortbyname,sortbyprior,sortbyprogres;
+	private JButton Creat, Search, Sort, CreateGroup, ck,sortbyname,sortbyprior,sortbyprogres,showall;
 	Account mainaccount ;
 	String username;
 	
@@ -51,6 +51,9 @@ public class inapp extends JFrame implements ActionListener{
 		CreateGroup.addActionListener(this);
 		bottonpanel.add(ck);
 		ck.addActionListener(this);
+		showall=new JButton("show all");
+		showall.addActionListener(this);
+		bottonpanel.add(showall);
 		bottonpanel.setBorder(new TitledBorder(""));
 		username = account.getUserName();
 		add(mainpane);
@@ -103,6 +106,20 @@ public class inapp extends JFrame implements ActionListener{
 		if (arg0.getActionCommand().equals("Create Group")) {
 			grouppanel a = new grouppanel(mainaccount);
 			a.setSize(400, 450);
+			a.setTitle("FREEMIO");
+			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			a.setVisible(true);
+		}
+		if (arg0.getActionCommand().equals("show all")) {
+			System.out.println("showall");
+			showall a = null;
+			try {
+				a = new showall(mainaccount);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			a.setSize(400, 200);
 			a.setTitle("FREEMIO");
 			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			a.setVisible(true);
