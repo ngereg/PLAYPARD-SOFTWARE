@@ -227,4 +227,28 @@ public class Task {
 		System.out.println("");
 		return result;
 	}
+	
+	public static void updateProgress(String oldTaskName, File file, int newProg) throws IOException { 
+		Scanner scan = new Scanner(file);
+		ArrayList<Task> result = Task.search(scan, oldTaskName);
+		Task oldTask = result.get(0);
+		String oldString = oldTask .toString();
+		System.out.println(oldString);
+		oldTask.setProgress(newProg);
+		String newString = oldTask.toString();
+		System.out.println(newString);
+		String oldContent = "";
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String line = reader.readLine();
+		while (line != null) {
+			oldContent = oldContent + line + System.lineSeparator();
+			line = reader.readLine();
+		}
+		String newContent = oldContent.replaceAll(oldString, newString);
+		FileWriter writer = new FileWriter(file);
+		writer.write(newContent);
+		scan.close();
+		reader.close();
+		writer.close();
+	}
 }
