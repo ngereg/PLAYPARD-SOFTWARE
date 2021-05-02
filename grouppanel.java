@@ -55,33 +55,15 @@ public class grouppanel extends JFrame implements ActionListener {
 		CreateGroup3.addActionListener(this);
 		bottonpanel.add(CreateGroup3);
 		
-		add(mainpanel);
-		
-	}
-	
+		File file = new File(username + ".txt");
+		ArrayList<Task> tasks = null;
+		try {
+			tasks = Task.loadFromFile(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
-	public void actionPerformed(ActionEvent arg0) {
-		
-		//Prompt user to Add Group Name
-		if (arg0.getActionCommand().equals("Create Group 1")) {
-		groupName1 = JOptionPane.showInputDialog(null,"Enter Group Name");
-		
-		tasks = new ArrayList<Task>();
-		
-		group1Tasks = new ArrayList<String>();
-		
-		CreateGroup1.setText(groupName1);
-		
-		//Capture all of the tasks for the user
-		Date dueDate = new Date(2021 - 1900, 4 - 1, 9);
-		Task task = new Task(0, "Clean Room", "This is a test Task", dueDate, 0, 0);
-		Task task2 = new Task(0, "Wash Car", "This is a test Task", dueDate, 0, 0);
-	
-		tasks.add(task);
-		tasks.add(task2);
-		
-		
-		//Add Buttons with Task Names from tasks arraylist
+		//Add Buttons with Task Names for User
 		for (int i = 0; i < tasks.size(); i++) {
 			String taskName = tasks.get(i).getname();
 			JButton name = new JButton(taskName);
@@ -89,15 +71,20 @@ public class grouppanel extends JFrame implements ActionListener {
 			mainpanel.add(name);
 			mainpanel.validate();
 			}
+
+		add(mainpanel);
 		
-		//Need to get user input for which ones they click on, then...
+	}
+	
+
+	
+	public void actionPerformed(ActionEvent arg0) {
 		
-		//Populate group1Text field with task names
-		for (int i = 0; i < tasks.size(); i++) {
-			String name = tasks.get(i).getname();
-			group1Tasks.add(name);
-			group1Text.setText(group1Text.getText() + "\n" + name);
-		}
+		if (arg0.getActionCommand().equals("Create Group 1")) {
+			
+		groupName1 = JOptionPane.showInputDialog(null,"Enter Group Name");
+		
+		CreateGroup1.setText(groupName1);
 		
 		
 		sortpanel.revalidate();
@@ -105,43 +92,14 @@ public class grouppanel extends JFrame implements ActionListener {
 		
 		}
 		
-		if(arg0.getActionCommand().equals("Create Group 2")) {
+		else if(arg0.getActionCommand().equals("Create Group 2")) {
+			
 			groupName2 = JOptionPane.showInputDialog(null,"Enter Group Name");
 			
 			tasks = new ArrayList<Task>();
 			
-			group1Tasks = new ArrayList<String>();
 			
 			CreateGroup2.setText(groupName2);
-			
-			//Capture all of the tasks for the user
-			Date dueDate = new Date(2021 - 1900, 4 - 1, 9);
-		
-			Task task3 = new Task(0, "Take Out Trash", "This is a test Task", dueDate, 0, 0);
-			Task task4 = new Task(0, "Walk Dog", "This is a test Task", dueDate, 0, 0);
-		
-		
-			tasks.add(task3);
-			tasks.add(task4);
-		
-			
-			//Add Buttons with Task Names from tasks arraylist
-			for (int i = 0; i < tasks.size(); i++) {
-				String taskName = tasks.get(i).getname();
-				JButton name = new JButton(taskName);
-				name.addActionListener(this);
-				mainpanel.add(name);
-				
-				}
-			
-			//Need to get user input for which ones they click on, then...
-			
-			//Populate group1Text field with task names
-			for (int i = 0; i < tasks.size(); i++) {
-				String name = tasks.get(i).getname();
-				group1Tasks.add(name);
-				group2Text.setText(group2Text.getText() + "\n" + name);
-			}
 			
 			
 			sortpanel.revalidate();
@@ -149,41 +107,14 @@ public class grouppanel extends JFrame implements ActionListener {
 			
 		}
 		
-		if(arg0.getActionCommand().equals("Create Group 3")) {
+		else if(arg0.getActionCommand().equals("Create Group 3")) {
+			
 			groupName3 = JOptionPane.showInputDialog(null,"Enter Group Name");
 			
 			tasks = new ArrayList<Task>();
 			
-			group3Tasks = new ArrayList<String>();
 			
 			CreateGroup3.setText(groupName3);
-			
-			//Capture all of the tasks for the user
-			Date dueDate = new Date(2021 - 1900, 4 - 1, 9);
-	
-			Task task5 = new Task(0, "Do HW", "This is a test Task", dueDate, 0, 0);
-			Task task6 = new Task(0, "Buy Soap", "This is a test Task", dueDate, 0, 0);
-		
-			tasks.add(task5);
-			tasks.add(task6);
-			
-			//Add Buttons with Task Names from tasks arraylist
-			for (int i = 0; i < tasks.size(); i++) {
-				String taskName = tasks.get(i).getname();
-				JButton name = new JButton(taskName);
-				name.addActionListener(this);
-				mainpanel.add(name);
-				
-				}
-			
-			//Need to get user input for which ones they click on, then...
-			
-			//Populate group1Text field with task names
-			for (int i = 0; i < tasks.size(); i++) {
-				String name = tasks.get(i).getname();
-				group3Tasks.add(name);
-				group3Text.setText(group3Text.getText() + "\n" + name);
-			}
 			
 			
 			sortpanel.revalidate();
@@ -191,7 +122,30 @@ public class grouppanel extends JFrame implements ActionListener {
 			
 		}
 		
+		else {
+		JButton button = (JButton) arg0.getSource();
+		String task  = button.getLabel();
 		
+		Object[] possibleValues = { groupName1, groupName2, groupName3 };
+		String groupSelection = (String) JOptionPane.showInputDialog(null,
+		"Select Which Group To Add Task", "Input",
+		JOptionPane.INFORMATION_MESSAGE, null,
+		possibleValues, possibleValues[0]);
+		
+		
+		
+		if(groupSelection.equalsIgnoreCase(groupName1)) {
+			group1Text.append(task + "\n");		
+		}
+		
+		if(groupSelection.equalsIgnoreCase(groupName2)) {
+			group2Text.append(task + "\n");		
+		}
+			
+		if(groupSelection.equalsIgnoreCase(groupName3)) {
+			group3Text.append(task + "\n");		
+		}
+		}
 		
 	}
 	
