@@ -1,5 +1,4 @@
 
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,24 +18,26 @@ import javax.swing.border.TitledBorder;
 
 /**
  * the main panel after user login
+ * 
  * @author ruitong sun, Yueheng Han
  *
  */
 
-public class inapp extends JFrame implements ActionListener{
+public class inapp extends JFrame implements ActionListener {
 	private JTextField uid, pwd;
-	private JPanel bottonpanel, mainpane,sortpanel,sortbottonpanel;
+	private JPanel bottonpanel, mainpane, sortpanel, sortbottonpanel;
 	private JTextArea sortresult;
-	private JButton Creat, Search, Sort, CreateGroup, ck,sortbyname,sortbyprior,sortbyprogres,showall,update;
-	Account mainaccount ;
+	private JButton Creat, Search, Sort, CreateGroup, ck, sortbyname, sortbyprior, sortbyprogres, showall, update, reminder;
+	Account mainaccount;
 	String username;
-	
+
 	/**
-	 * main interface 
+	 * main interface
+	 * 
 	 * @param account
 	 */
 	public inapp(Account account) {
-		mainaccount=account;
+		mainaccount = account;
 		mainpane = new JPanel();
 		bottonpanel = new JPanel();
 		bottonpanel.setBorder(new TitledBorder("function"));
@@ -52,11 +53,16 @@ public class inapp extends JFrame implements ActionListener{
 		Sort.addActionListener(this);
 		bottonpanel.add(CreateGroup);
 		CreateGroup.addActionListener(this);
-		showall=new JButton("show all");
+		showall = new JButton("show all");
 		showall.addActionListener(this);
 		bottonpanel.add(showall);
-		update=new JButton("update task");
+		update = new JButton("update task");
 		update.addActionListener(this);
+		
+		reminder = new JButton("reminder");
+		bottonpanel.add(reminder);
+		reminder.addActionListener(this);
+
 		bottonpanel.add(update);
 		bottonpanel.setBorder(new TitledBorder(""));
 		username = account.getUserName();
@@ -64,6 +70,7 @@ public class inapp extends JFrame implements ActionListener{
 		mainpane.add(bottonpanel);
 		bottonpanel.setPreferredSize(new Dimension(380, 100));
 	}
+
 	/**
 	 * Different panel for different button
 	 */
@@ -144,5 +151,12 @@ public class inapp extends JFrame implements ActionListener{
 			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			a.setVisible(true);
 		}
-}
+		if (arg0.getActionCommand().equals("reminder")) {
+			reminder a = new reminder(mainaccount);
+			a.setSize(400, 450);
+			a.setTitle("reminder");
+			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			a.setVisible(true);
+		}
+	}
 }
