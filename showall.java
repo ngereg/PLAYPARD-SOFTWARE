@@ -21,7 +21,7 @@ public class showall extends JFrame implements ActionListener {
 	private JPanel panel,panel1,mainpanel;
 	private JButton searchbutton;
 	private JTextArea information;
-	String result;
+	String result="";
 	
 	public showall(Account account) throws FileNotFoundException {
 		mainpanel=new JPanel();

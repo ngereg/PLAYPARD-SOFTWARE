@@ -40,7 +40,6 @@ public class inapp extends JFrame implements ActionListener{
 		Search = new JButton("Search task");
 		Sort = new JButton("Sort");
 		CreateGroup = new JButton("Create Group");
-		ck = new JButton("Check task progress");
 		bottonpanel.add(Creat);
 		Creat.addActionListener(this);
 		bottonpanel.add(Search);
@@ -49,8 +48,6 @@ public class inapp extends JFrame implements ActionListener{
 		Sort.addActionListener(this);
 		bottonpanel.add(CreateGroup);
 		CreateGroup.addActionListener(this);
-		bottonpanel.add(ck);
-		ck.addActionListener(this);
 		showall=new JButton("show all");
 		showall.addActionListener(this);
 		bottonpanel.add(showall);
