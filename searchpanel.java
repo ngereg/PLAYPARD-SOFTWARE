@@ -12,21 +12,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class searchpanel extends JFrame implements ActionListener {
-	private JLabel searchprint,information;
+	private JLabel searchprint;
 	private JTextField taskname;
 	private JPanel panel,panel1,mainpanel;
 	private JButton searchbutton;
-	String id,name,description,year,month,day,prity,progress,searchCond,username,searchresult;
+	private JTextArea information;
+	String id,name,description,year,month,day,prity,progress,searchCond,username;
 
 	public searchpanel (Account account) throws FileNotFoundException {
 		mainpanel=new JPanel();
 		panel = new JPanel();
 		
-		searchprint = new JLabel("Please inter your task name");
+		searchprint = new JLabel("Please Enter your task name");
 		taskname = new JTextField(10);
 		
 		panel.add(searchprint);
@@ -34,11 +36,16 @@ public class searchpanel extends JFrame implements ActionListener {
 		searchbutton=new JButton("search");
 		searchbutton.addActionListener(this);
 		panel.add(searchbutton);
-		searchCond = taskname.getText();
 		username=account.getUserName();
 		mainpanel.add(panel);
 		add(mainpanel);
-		panel.setPreferredSize(new Dimension(380, 100));
+		panel.setPreferredSize(new Dimension(380, 50));
+		
+		information=new JTextArea(30, 30);
+		panel1=new JPanel();
+		panel1.add(information);
+		mainpanel.add(panel1);
+		this.setSize(400, 350);
 		}
 
 	
@@ -46,7 +53,8 @@ public class searchpanel extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("search")) {
-
+			String searchresult = "";
+			searchCond = taskname.getText();
 			Scanner reader = null;
 			try {
 				reader = new Scanner(new File(username+".txt"));
@@ -54,18 +62,13 @@ public class searchpanel extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}	
-			ArrayList<Task> result = new ArrayList<Task>();
-			result = Task.search(reader,searchCond);
+			ArrayList<Task> result = Task.search(reader, searchCond);
 			
 			for(int i = 0; i < result.size(); i++) {   
-				searchresult=result.get(i).toString()+"\n";
+				searchresult = searchresult + result.get(i).toString() + "\n";
 			}
-			information=new JLabel(searchresult);
+			information.setText(searchresult);
 			System.out.print(searchresult);
-			panel1=new JPanel();
-			panel1.add(information);
-			mainpanel.add(panel1);
-			this.setSize(400, 350);
 		}
 	}
 }

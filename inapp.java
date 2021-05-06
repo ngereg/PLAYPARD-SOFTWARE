@@ -27,7 +27,7 @@ public class inapp extends JFrame implements ActionListener{
 	private JTextField uid, pwd;
 	private JPanel bottonpanel, mainpane,sortpanel,sortbottonpanel;
 	private JTextArea sortresult;
-	private JButton Creat, Search, Sort, CreateGroup, ck,sortbyname,sortbyprior,sortbyprogres,showall;
+	private JButton Creat, Search, Sort, CreateGroup, ck,sortbyname,sortbyprior,sortbyprogres,showall,update;
 	Account mainaccount ;
 	String username;
 	
@@ -40,7 +40,6 @@ public class inapp extends JFrame implements ActionListener{
 		Search = new JButton("Search task");
 		Sort = new JButton("Sort");
 		CreateGroup = new JButton("Create Group");
-		ck = new JButton("Check task progress");
 		bottonpanel.add(Creat);
 		Creat.addActionListener(this);
 		bottonpanel.add(Search);
@@ -49,11 +48,12 @@ public class inapp extends JFrame implements ActionListener{
 		Sort.addActionListener(this);
 		bottonpanel.add(CreateGroup);
 		CreateGroup.addActionListener(this);
-		bottonpanel.add(ck);
-		ck.addActionListener(this);
 		showall=new JButton("show all");
 		showall.addActionListener(this);
 		bottonpanel.add(showall);
+		update=new JButton("update task");
+		update.addActionListener(this);
+		bottonpanel.add(update);
 		bottonpanel.setBorder(new TitledBorder(""));
 		username = account.getUserName();
 		add(mainpane);
@@ -120,6 +120,20 @@ public class inapp extends JFrame implements ActionListener{
 				e.printStackTrace();
 			}
 			a.setSize(400, 200);
+			a.setTitle("FREEMIO");
+			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			a.setVisible(true);
+		}
+		if (arg0.getActionCommand().equals("update task")) {
+			System.out.println("update task");
+			updatepanel a = null;
+			try {
+				a = new updatepanel(mainaccount);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			a.setSize(800, 100);
 			a.setTitle("FREEMIO");
 			a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			a.setVisible(true);
