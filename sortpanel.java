@@ -10,7 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+/**
+ * sort all task in differnt ways
+ * @author ruitong
+ *
+ */
 public class sortpanel extends JFrame implements ActionListener {
 	private JTextField uid, pwd;
 	private JPanel bottonpanel, mainpanel, sortpanel, sortbottonpanel;

@@ -14,7 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
+/**
+ * panel showing all user's task
+ * @author ruitong
+ *
+ */
 public class showall extends JFrame implements ActionListener {
 	private JLabel searchprint;
 	private JTextField taskname;

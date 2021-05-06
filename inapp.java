@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
- * 
+ * the main panel after user login
  * @author ruitong sun, Yueheng Han
  *
  */
@@ -31,6 +31,10 @@ public class inapp extends JFrame implements ActionListener{
 	Account mainaccount ;
 	String username;
 	
+	/**
+	 * main interface 
+	 * @param account
+	 */
 	public inapp(Account account) {
 		mainaccount=account;
 		mainpane = new JPanel();
@@ -60,7 +64,9 @@ public class inapp extends JFrame implements ActionListener{
 		mainpane.add(bottonpanel);
 		bottonpanel.setPreferredSize(new Dimension(380, 100));
 	}
-	
+	/**
+	 * Different panel for different button
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getActionCommand().equals("Create task")) {

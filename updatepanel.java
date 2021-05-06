@@ -14,7 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
+/**
+ * panel update the task chosen by user
+ * @author ruitong
+ *
+ */
 public class updatepanel extends JFrame implements ActionListener {
 	private JLabel updateprint,progressprint;
 	private JTextField taskname,progress;

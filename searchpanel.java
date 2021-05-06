@@ -15,7 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
+ /**
+  * 
+  * @author ruitong
+  *	allow user to search differnt task
+  */
 public class searchpanel extends JFrame implements ActionListener {
 	private JLabel searchprint;
 	private JTextField taskname;

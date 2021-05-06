@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
- * 
+ *  getting input from user, also able to let user sign up and make them own txt file
  * @author ruitong sun, Yueheng Han
  *
  */

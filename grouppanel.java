@@ -15,7 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
+/**
+ * 
+ * allow user able to group each task in the group with the name user given
+ *
+ */
 public class grouppanel extends JFrame implements ActionListener {
 	private JTextField uid, pwd;
 	private JPanel bottonpanel, mainpanel, sortpanel, sortbottonpanel, taskpanel;
