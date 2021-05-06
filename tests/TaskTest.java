@@ -10,9 +10,16 @@ import java.util.Date;
 import java.util.Scanner;
 
 import org.junit.Test;
-
+/**
+ * Junit test of task
+ * @author yuehe
+ *
+ */
 public class TaskTest {
-
+	
+	/**
+	 * Test task constructor
+	 */
 	@Test
 	public void testTask() {
 		Date dueDate = new Date(2021 - 1900, 4 - 1, 9);
@@ -26,7 +33,10 @@ public class TaskTest {
 		assertEquals(0, task.getPriority());
 		assertEquals(0, task.getProgress());
 	}
-
+	
+	/**
+	 * test task object setters and getters
+	 */
 	@Test
 	public void testSetname() {
 		Date dueDate = new Date(2021 - 1900, 4 - 1, 9);
@@ -73,7 +83,10 @@ public class TaskTest {
 		task.setDate(testDate);
 		assertEquals(testDate, task.getDueDate());
 	}
-
+	
+	/**
+	 * test parse the task in string to task object
+	 */
 	@Test
 	public void testMakeItTask() {
 		String test = "0;task;This is a test Task;4/9/2021;0;0";
@@ -81,7 +94,10 @@ public class TaskTest {
 		Task testTask = Task.makeItTask(array);
 		assertEquals(test, testTask.toString());
 	}
-
+	
+	/**
+	 * test parse the date in string to date object
+	 */
 	@Test
 	public void testMakeItDate() {
 		String test = "4/9/2021";
@@ -90,6 +106,10 @@ public class TaskTest {
 		assertEquals(testDue, dueDate);
 	}
 
+	/**
+	 * test search task
+	 * @throws IOException
+	 */
 	@Test
 	public void testSearch() throws IOException {
 		Date dueDate = new Date(2021 - 1900, 4 - 1, 9);
@@ -119,7 +139,11 @@ public class TaskTest {
 		reader.close();
 		tempTestFile.delete();
 	}
-
+	
+	/**
+	 * test create task
+	 * @throws IOException
+	 */
 	@Test
 	public void testCreate() throws IOException {
 		File tempTestFile = new File("TestFile.txt");
@@ -147,6 +171,10 @@ public class TaskTest {
 		tempTestFile.delete();
 	}
 	
+	/**
+	 * test sort task by name, priority and progress
+	 * @throws IOException
+	 */
 	@Test
 	public void testSortTasks() throws IOException {
 		File tempTestFile = new File("TestFile2.txt");
@@ -192,25 +220,10 @@ public class TaskTest {
 		tempTestFile.delete();
 	}
 	
-	public void testTaskGroup() throws IOException {
-		ArrayList<Task> taskGroup = new ArrayList<Task>();
-		File tempTestFile = new File("TestFile2.txt");
-		String dueDate1 = "4/20/2021";
-		String dueDate2 = "4/23/2021";
-		String dueDate3 = "5/20/2021";
-		Task.createTask("btest", "This is a test Task", dueDate2, 1, 0, tempTestFile);
-		Task.createTask("atest", "This is a test Task", dueDate1, 0, -1, tempTestFile);
-		Task.createTask("ctest", "This is a test Task", dueDate3, 0, 1, tempTestFile);
-	}
-	
-	@Test
-	public void testreminder() {
-		Date dueDate = new Date(2021-1900, 4-1, 9);
-		String email= "email@email.com";
-		Task task = new Task(0, "task", "This is a test Task", dueDate, 0, 0);
-		// assertTrue(Task.setreminder(email,task));
-	}
-	
+	/**
+	 * test update task progress
+	 * @throws IOException
+	 */
 	@Test
 	public void testUpdate() throws IOException {
 		File tempTestFile = new File("TestFile3.txt");

@@ -1,12 +1,18 @@
-
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 
 import org.junit.Test;
-
+/**
+ * Junit test of account
+ * @author yuehe
+ *
+ */
 public class AccountTest {
-
+	
+	/**
+	 * test account constructor
+	 */
 	@Test
 	public void testAccount() {
 		Account account1 = new Account();
@@ -16,7 +22,10 @@ public class AccountTest {
 		assertEquals("Yueheng", account2.getUserName());
 		assertEquals("010628", account2.getPassWord());
 	}
-
+	
+	/**
+	 * test account setters and getters
+	 */
 	@Test
 	public void testGetUserName() {
 		Account account = new Account("Yueheng", "010628");
@@ -44,7 +53,11 @@ public class AccountTest {
 		account.setPassWord("123456");
 		assertEquals("123456", account.getPassWord());
 	}
-
+	
+	/**
+	 * test validate account
+	 * @throws FileNotFoundException
+	 */
 	@Test
 	public void testValidateAccount() throws FileNotFoundException {
 		Account validAccount = new Account("Yueheng", "010628");
@@ -52,7 +65,11 @@ public class AccountTest {
 		Account invalidAccount = new Account("INVALID", "INVALID");
 		assertFalse(Account.validateAccount(invalidAccount));
 	}
-
+	
+	/**
+	 * test validate user name
+	 * @throws FileNotFoundException
+	 */
 	@Test
 	public void testValidateUserName() throws FileNotFoundException {
 		Account validAccount = new Account("Yueheng", "010628");
@@ -60,7 +77,10 @@ public class AccountTest {
 		Account invalidAccount = new Account("INVALID", "INVALID");
 		assertTrue(Account.validateUserName(invalidAccount.getUserName()));
 	}
-
+	
+	/**
+	 * test parse the object to string
+	 */
 	@Test
 	public void testToString() {
 		Account account = new Account("Yueheng", "010628");
