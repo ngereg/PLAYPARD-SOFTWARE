@@ -5,22 +5,33 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
-
+/**
+ * Task object and functions
+ * @author Yueheng Han
+ *
+ */
 public class Task {
-
 	private int id;
 	private String name;
 	private String description;
 	private Date dueDate; // int year(current-1900); int month(current-1); int date
 	private int priority; // 0 is normal, 1 is emergency
 	private int progress; // -1 is finish, 0 is doing, 1 is to do
-
+	
+	/**
+	 * Task constructor
+	 * @param id Task id
+	 * @param name Task name
+	 * @param description Task description
+	 * @param dueDate Task due date
+	 * @param priority Task priority, 0 is normal, 1 is emergency
+	 * @param progress Task progress, -1 is finish, 0 is doing, 1 is to do
+	 */
 	public Task(int id, String name, String description, Date dueDate, int priority, int progress) {
 		this.id = id;
 		this.name = name;
@@ -56,7 +67,6 @@ public class Task {
 	}
 
 	// Setter Methods
-
 	public void setname(String name) {
 		this.name = name;
 	}
@@ -76,14 +86,27 @@ public class Task {
 	public void setProgress(int progress) {
 		this.progress = progress;
 	}
-
+	
+	/**
+	 * parse the object to string
+	 */
 	public String toString() {
 		int dueDateYear = dueDate.getYear() + 1900;
 		int dueDateMonth = dueDate.getMonth() + 1;
 		String date = dueDateMonth + "/" + dueDate.getDate() + "/" + dueDateYear;
 		return id + ";" + name + ";" + description + ";" + date + ";" + priority + ";" + progress;
 	}
-
+	
+	/**
+	 * Create task by user input
+	 * @param name Task name given by user
+	 * @param description Task description given by user
+	 * @param dueDate Task due date given by user
+	 * @param priority Task priority given by user, 0 is normal, 1 is emergency
+	 * @param progress Task progress given by user, -1 is finish, 0 is doing, 1 is to do
+	 * @param file The file of the specific that store all task
+	 * @throws IOException
+	 */
 	public static void createTask(String name, String description, String dueDate, int priority, int progress,
 			File file) throws IOException {
 		boolean empty = file.length() == 0;
@@ -106,7 +129,13 @@ public class Task {
 		pw.close();
 		//System.out.println(newTask.toString());
 	}
-
+	
+	/**
+	 * Search task base the task name given by user input
+	 * @param reader scanner of the file of the specific that store all task
+	 * @param searchCond search condition given by user input
+	 * @return An array list has all the task match the user input
+	 */
 	public static ArrayList<Task> search(Scanner reader, String searchCond) {
 		// TODO Auto-generated method stub
 		ArrayList<Task> result = new ArrayList<Task>();
@@ -120,7 +149,12 @@ public class Task {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * Parse the date in string to date object
+	 * @param dateInString date in string
+	 * @return date object
+	 */
 	public static Date makeItDate(String dateInString) {
 		String[] array = dateInString.split("/");
 		int year = Integer.parseInt(array[2]);
@@ -129,7 +163,12 @@ public class Task {
 		return new Date(year - 1900, mouth - 1, date);
 
 	}
-
+	
+	/**
+	 * Parse the task in string to task object
+	 * @param array an array contain all task parameter in string
+	 * @return task object
+	 */
 	public static Task makeItTask(String[] array) {
 		int tempId = Integer.parseInt(array[0]);
 		int tempPriority = Integer.parseInt(array[4]);
@@ -138,6 +177,12 @@ public class Task {
 		return new Task(tempId, array[1], array[2], tempDue, tempPriority, tempProgress);
 	}
 	
+	/**
+	 * load all tasks in file to an array list
+	 * @param file The file of the specific that store all task
+	 * @return A task array list contain all task
+	 * @throws FileNotFoundException
+	 */
 	public static ArrayList<Task> loadFromFile(File file) throws FileNotFoundException {
 		ArrayList<Task> result = new ArrayList<Task>();
 		Scanner in = new Scanner(file);
@@ -149,7 +194,10 @@ public class Task {
 		in.close();
 		return result;
 	}
-
+	
+	/**
+	 * the comparator for sort by name
+	 */
 	public static Comparator<Task> taskNameComparator = new Comparator<Task>() {
 
 		public int compare(Task t1, Task t2) {
@@ -160,6 +208,9 @@ public class Task {
 		}
 	};
 	
+	/**
+	 * the comparator for sort by progress
+	 */
 	public static Comparator<Task> taskProgressComparator = new Comparator<Task>() {
 
 		public int compare(Task t1, Task t2) {
@@ -170,6 +221,9 @@ public class Task {
 		}
 	};
 	
+	/**
+	 * the comparator for sort by priority
+	 */
 	public static Comparator<Task> taskPriorityComparator = new Comparator<Task>() {
 
 		public int compare(Task t1, Task t2) {
@@ -179,7 +233,13 @@ public class Task {
 			return taskPriority2-taskPriority1;
 		}
 	};
-
+	
+	/**
+	 * Sort all the task by task name
+	 * @param file The file of the specific that store all task
+	 * @return An array list of all task sorted by name
+	 * @throws FileNotFoundException
+	 */
 	public static ArrayList<Task> sortByName(File file) throws FileNotFoundException{
 		ArrayList<Task> result = Task.loadFromFile(file);
 		System.out.println("This is sort by name");
@@ -195,7 +255,13 @@ public class Task {
 		System.out.println("");
 		return result;
 	}
-
+	
+	/**
+	 * Sort all the task by task progress
+	 * @param file The file of the specific that store all task
+	 * @return An array list of all task sorted by name
+	 * @throws FileNotFoundException
+	 */
 	public static ArrayList<Task> sortByProgress(File file) throws FileNotFoundException {
 		ArrayList<Task> result = Task.loadFromFile(file);
 		System.out.println("This is sort by progress");
@@ -211,7 +277,13 @@ public class Task {
 		System.out.println("");
 		return result;
 	}
-
+	
+	/**
+	 * Sort all the task by task priority
+	 * @param file The file of the specific that store all task
+	 * @return An array list of all task sorted by name
+	 * @throws FileNotFoundException
+	 */
 	public static ArrayList<Task> sortByPriority(File file) throws FileNotFoundException {
 		ArrayList<Task> result = Task.loadFromFile(file);
 		System.out.println("This is sort by priority");
@@ -228,6 +300,13 @@ public class Task {
 		return result;
 	}
 	
+	/**
+	 * update task progress given by user input
+	 * @param oldTaskName the task name which need to be update given by user input
+	 * @param file The file of the specific that store all task
+	 * @param newProg The new task progress
+	 * @throws IOException
+	 */
 	public static void updateProgress(String oldTaskName, File file, int newProg) throws IOException { 
 		Scanner scan = new Scanner(file);
 		ArrayList<Task> result = Task.search(scan, oldTaskName);
